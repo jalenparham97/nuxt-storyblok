@@ -18,22 +18,39 @@ export default {
   components: {
     PostCard
   },
-  data: () => ({
-    posts: [
-      { 
-        title: 'A New Beginning' ,
-        previewText: 'this will be awesome don\'t miss it!',
-        thumbnailUrl: 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
-        id: 'a-new-beginning'
-      },
-      { 
-        title: 'A Second Beginning' ,
-        previewText: 'this will be awesome don\'t miss it!',
-        thumbnailUrl: 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
-        id: 'a-second-beginning'
+  asyncData: context => {
+    return context.app.$storyapi.get('cdn/stories', {
+      version: 'draft',
+      starts_with: 'blog/'
+    }).then(res => {
+      return {
+        posts: res.data.stories.map(bp => {
+          return {
+            id: bp.slug,
+            title: bp.content.title,
+            previewText: bp.content.summary,
+            thumbnailUrl: bp.content.thumbnail
+          }
+        })
       }
-    ]
-  })
+    })
+  }
+  // data: () => ({
+  //   posts: [
+  //     { 
+  //       title: 'A New Beginning' ,
+  //       previewText: 'this will be awesome don\'t miss it!',
+  //       thumbnailUrl: 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
+  //       id: 'a-new-beginning'
+  //     },
+  //     { 
+  //       title: 'A Second Beginning' ,
+  //       previewText: 'this will be awesome don\'t miss it!',
+  //       thumbnailUrl: 'https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg',
+  //       id: 'a-second-beginning'
+  //     }
+  //   ]
+  // })
 }
 </script>
 

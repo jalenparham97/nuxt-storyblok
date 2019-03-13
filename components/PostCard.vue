@@ -1,7 +1,7 @@
 <template>
   <nuxt-link :to="id">
     <article class="post-preview">
-      <div class="post-thumnail" :style="{backgroundImage: 'url(' + thumbnailImage + ')'}"></div>
+      <div class="post-thumbnail" :style="{backgroundImage: `url(${thumbnailImage})`}"></div>
       <div class="post-content">
         <h1>{{ title }}</h1>
         <p>{{ excerpt }}</p>
